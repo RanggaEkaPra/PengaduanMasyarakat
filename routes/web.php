@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PengaduanController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth')->get('/dashboard', [UserController::class, 'index'])->name('dashboard');
-Route::get('/register',[RegisterController::class,'tampil'])->name('account.register');
+Route::get('/register', [RegisterController::class, 'tampil'])->name('account.register');
 Route::post('/register', [RegisterController::class, 'register']);
 // Route::get('/usertampil', [LoginController::class, 'loging']);
 
@@ -67,4 +68,3 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
 Route::post('/pengaduan/{id}/comment', [PengaduanController::class, 'addComment'])->name('addComment');
-

@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="dasboarduser.css"> <!-- Custom CSS -->
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="d-flex">
-        
+
         <aside class="sidebar bg-light vh-100 p-3">
             <!-- User Profile Section -->
             <div class="text-center mb-4">
@@ -59,8 +60,8 @@
         <!-- Main Content -->
         <main class="p-4 flex-grow-1">
             <!-- <h2 class="fw-bold mb-4">Selamat Datang, {{ Auth::user()->name }}!</h2> -->
-            
-            @if(request()->routeIs('bikinPengaduan'))
+
+            @if (request()->routeIs('bikinPengaduan'))
                 <!-- Form for Bikin Pengaduan -->
                 <section>
                     <h3>Bikin Pengaduan</h3>
@@ -91,32 +92,33 @@
                 </section>
             @endif
 
-            @if(request()->routeIs('lihatPengaduan'))
-<!-- Tampilan Lihat Pengaduan -->
-<section>
-    <h3>Lihat Pengaduan</h3>
-    @foreach ($pengaduans as $pengaduan)
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title">{{ $pengaduan->judul }}</h5>
-                <p class="card-text"><strong>Dibuat oleh:</strong> {{ $pengaduan->user->name }}</p>
-                <p class="card-text"><strong>Kategori:</strong> {{ $pengaduan->kategori->name }}</p>
-                <p class="card-text"><strong>Gambar:</strong> {{ $pengaduan->gambar }}</p>
-                <p class="card-text">{{ $pengaduan->deskripsi }}</p>
-                <a href="{{ route('pengaduan.show', $pengaduan->id) }}" class="btn btn-primary">Lihat Detail</a>
-            </div>
-        </div>
-    @endforeach
-</section>
+            @if (request()->routeIs('lihatPengaduan'))
+                <!-- Tampilan Lihat Pengaduan -->
+                <section>
+                    <h3>Lihat Pengaduan</h3>
+                    @foreach ($pengaduans as $pengaduan)
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $pengaduan->judul }}</h5>
+                                <p class="card-text"><strong>Dibuat oleh:</strong> {{ $pengaduan->user->name }}</p>
+                                <p class="card-text"><strong>Kategori:</strong> {{ $pengaduan->kategori->name }}</p>
+                                <p class="card-text"><strong>Gambar:</strong> <img
+                                        src="{{ asset('storage/' . $pengaduan->gambar) }}" alt="Gambar"></p>
+                                <p class="card-text">{{ $pengaduan->deskripsi }}</p>
+                                <a href="{{ route('pengaduan.show', $pengaduan->id) }}" class="btn btn-primary">Lihat
+                                    Detail</a>
+                            </div>
+                        </div>
+                    @endforeach
+                </section>
 
 
-        @endforelse
+            @endforelse
         </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"></script>
 </body>
+
 </html>
-
-
