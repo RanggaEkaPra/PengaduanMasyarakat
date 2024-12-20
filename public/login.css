@@ -1,0 +1,195 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #89a8b2; /* Soft bluish-gray background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+/* Login Card */
+.login-card {
+    max-width: 420px;
+    width: 100%;
+    background: #ffffff; /* White background for the card */
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);  /* Softer, larger shadow */
+    overflow: hidden;
+    margin-top: 5rem;
+    transform: translateY(-50px);
+    transition: all 0.3s ease-in-out;
+}
+
+.login-card:hover {
+    transform: translateY(-20px);  /* Elevate the card on hover */
+}
+
+.card-header {
+    background-color: #f1f8fc; /* Lighter blue-gray background */
+    padding: 25px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 1px;
+}
+
+.card-header p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #aaa;
+}
+
+/* Input Fields */
+.card-body {
+    padding: 35px;
+}
+
+.card-body .form-control {
+    height: 50px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f7f9fc; /* Soft blue-gray background for inputs */
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.card-body .form-control:hover {
+    border-color: #2575fc;
+    box-shadow: 0 0 5px rgba(37, 117, 252, 0.2);  /* Hover effect for inputs */
+}
+
+.card-body .form-control:focus {
+    border-color: #2575fc;
+    box-shadow: 0 0 8px rgba(37, 117, 252, 0.3);  /* Focus effect */
+    outline: none;
+}
+
+.card-body .form-control.ps-5 {
+    padding-left: 35px;  /* For icons inside inputs */
+}
+
+.card-body .btn {
+    background-color: #2575fc;  /* Matching the input hover color */
+    color: #ffffff;
+    border: none;
+    height: 50px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(37, 117, 252, 0.2);  /* Button shadow */
+}
+
+.card-body .btn:hover {
+    background-color: #1e63d6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 117, 252, 0.2);
+}
+
+.card-body .btn:active {
+    background-color: #1c55b3;
+    transform: translateY(1px);
+}
+
+.card-body .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.3);
+}
+
+/* Links */
+.link-primary {
+    color: #2575fc;  /* Matching button color */
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.link-primary:hover {
+    color: #1e63d6;
+    text-decoration: underline;
+}
+
+/* Error Notifications */
+.alert {
+    font-size: 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.alert:hover {
+    transform: scale(1.02);
+}
+
+/* Hover Effect for Error Close Button */
+.alert .btn-close {
+    transition: transform 0.3s ease-in-out;
+}
+
+.alert .btn-close:hover {
+    transform: scale(1.2);
+}
+
+/* Adding Custom Padding for Icons in Inputs */
+.card-body .form-control.ps-5 {
+    padding-left: 40px; /* Adjust to add space for the icon */
+}
+
+/* Input icons */
+.fas {
+    font-size: 18px;
+    color: #aaa;
+}
+
+/* Footer Section */
+.text-muted {
+    font-size: 14px;
+}
+
+/* Back to Home Icon */
+.card {
+    position: relative; /* Required for absolute positioning of the icon */
+}
+
+.card .position-absolute {
+    top: 10px;
+    left: 10px; /* Position the icon in the top-left corner */
+    color: #333;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.card .position-absolute:hover {
+    color: #2575fc; /* Change color on hover */
+}
+
+.card .position-absolute i {
+    cursor: pointer;
+}
+
+/* Adjust positioning for icons inside input fields */
+.position-relative .fa-envelope,
+.position-relative .fa-lock {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 15px; /* Distance from the left edge of the input */
+    font-size: 18px;
+    color: #6c757d;
+}
+
+input.ps-5 {
+    padding-left: 40px; /* Add space for the icon inside the input field */
+}
