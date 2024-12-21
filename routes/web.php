@@ -60,7 +60,7 @@ Route::post('/bikin-pengaduan', [PengaduanController::class, 'store'])->name('st
 Route::get('/lihat-pengaduan', [PengaduanController::class, 'index'])->name('lihatPengaduan');
 
 Route::middleware(['auth'])->group(function () {
-// User view their complaints
+    // User view their complaints
     Route::get('/lihat-admin', [PengaduanController::class, 'admin'])->name('lihat-admin'); // Admin view all complaints
     Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('deletePengaduan');
 });
@@ -71,4 +71,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/pengaduan/{id}', [PengaduanController::class, 'show'])->name('pengaduan.show');
-Route::post('/pengaduan/{id}/comment', [PengaduanController::class, 'addComment'])->name('addComment');
+// Route::post('/pengaduan/{id}/comment', [PengaduanController::class, 'addComment'])->name('addComment');

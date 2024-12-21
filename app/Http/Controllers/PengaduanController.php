@@ -44,9 +44,9 @@ class PengaduanController extends Controller
         }
         $userNik = auth()->user()->nik;
 
-if (!$userNik) {
-    return redirect()->route('login')->with('error', 'You must have a valid NIK to submit a complaint.');
-}
+        if (!$userNik) {
+            return redirect()->route('login')->with('error', 'You must have a valid NIK to submit a complaint.');
+        }
         Pengaduan::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
@@ -64,12 +64,10 @@ if (!$userNik) {
     {
         $pengaduans = Pengaduan::with('user', 'kategori', 'komentars.user',)->get();
         return view('lihatPengaduan', compact('pengaduans'));
-
-
     }
     public function admin()
     {
-        if(auth()->user()->role == 'admin') {
+        if (auth()->user()->role == 'admin') {
             // Fetch complaints with user and category info for the admin
             $pengaduans = Pengaduan::with('user', 'kategori', 'komentars.user')->get();
             return view('dashboard_admin', compact('pengaduans'));
@@ -95,6 +93,7 @@ if (!$userNik) {
         Komentar::create([
             'pengaduan_id' => $id,                  // ID pengaduan yang dikomentari
             'user_id' => auth()->id(),              // ID user yang login
+            'user_nik' => auth()->user()->nik,              // ID user yang login
             'komentar' => $validated['komentar'],   // Isi komentar
         ]);
 
