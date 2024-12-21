@@ -59,7 +59,11 @@ Route::post('/bikin-pengaduan', [PengaduanController::class, 'store'])->name('st
 // Melihat pengaduan
 Route::get('/lihat-pengaduan', [PengaduanController::class, 'index'])->name('lihatPengaduan');
 
-
+Route::middleware(['auth'])->group(function () {
+// User view their complaints
+    Route::get('/lihat-admin', [PengaduanController::class, 'admin'])->name('lihat-admin'); // Admin view all complaints
+    Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('deletePengaduan');
+});
 // Routes for Pengaduan
 Route::middleware(['auth'])->group(function () {
     Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('lihatPengaduan');

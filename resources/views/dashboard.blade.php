@@ -14,7 +14,7 @@
         <aside class="sidebar bg-light vh-100 p-3">
             <!-- User Profile Section -->
             <div class="text-center mb-4">
-                <img src="profile.jpg" alt="Profile" class="rounded-circle mb-2" width="80" height="80">
+                <img src="ic.jpg" alt="Profile" class="rounded-circle mb-2" width="80" height="80">
                 <h5 class="fw-bold">{{ Auth::user()->name }}</h5>
                 <br>
             </div>
@@ -37,15 +37,11 @@
                             <i class="bi bi-eye"></i> Lihat Pengaduan
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="bi bi-file-earmark"></i> Documentation
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button class="nav-link text-danger border-0 bg-transparent fw-bold">
+                            <button class="nav-link">
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </button>
                         </form>
@@ -156,10 +152,126 @@
 
         </main>
     </div>
+    <!DOCTYPE html>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Animasi Angka</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Background styling */
+        body {
+            background: linear-gradient(135deg, #f0f4f8, #c2e9fb); /* Lembut biru ke putih */
+            color: #333; /* Warna teks abu */
+        }
+
+        .container {
+            background-color: #ffffff; /* Putih bersih */
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Bayangan ringan */
+        }
+
+        /* Title styling */
+        .text-danger {
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: #2d7de0; /* Biru lembut */
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Counter styling */
+        .counter {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #2d7de0; /* Biru lembut */
+            background: linear-gradient(90deg, #6dd5ed, #2193b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Efek gradien */
+        }
+
+        /* Section title styling */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            color: #555; /* Warna netral */
+        }
+
+        /* Grid item styling */
+        .col {
+            margin-bottom: 2rem;
+        }
+
+        /* Hover effect */
+        .col:hover {
+            background-color: rgba(45, 125, 224, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="text-center">
+            <h1 class="text-danger">JUMLAH LAPORAN SEKARANG</h1>
+            <div id="totalReports" class="counter">0</div>
+        </div>
+
+        <div class="row mt-4 text-center">
+            @foreach ($categories as $category)
+                <div class="col">
+                    <div class="section-title">{{ $category->name }}</div>
+                    <div id="category-{{ $category->id }}" class="counter">0</div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const animateValue = (id, start, end, duration) => {
+            const obj = document.getElementById(id);
+            const range = end - start;
+            let startTime = null;
+
+            const step = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                obj.textContent = Math.floor(progress * range + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+
+            window.requestAnimationFrame(step);
+        };
+
+        // Data kategori dari server
+        const categories = @json($categories);
+
+        // Total laporan
+        const totalReports = categories.reduce((sum, category) => sum + category.pengaduans_count, 0);
+        animateValue('totalReports', 0, totalReports, 1200); // Durasi lebih cepat (800ms)
+
+        // Animasi untuk setiap kategori
+        categories.forEach(category => {
+            animateValue(`category-${category.id}`, 0, category.pengaduans_count, 1200); // Durasi lebih cepat (800ms)
+        });
+    });
+</script>
+<br><br><br>
+<br><br><br>
+<br><br><br>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </body>
 </html>
+

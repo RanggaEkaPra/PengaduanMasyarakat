@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="dasboarduser.css"> <!-- Custom CSS -->
+    <link rel="stylesheet" href="admin.css"> 
     <style>
-        /* Custom welcome message style */
-        .welcome-message {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        /* Further smaller card style */
+        .card {
+            max-width: 300px; /* Further reduce card width */
+            margin: 10px auto; /* Center the card horizontally */
         }
-        .welcome-message h3 {
-            color: #007bff;
-            font-weight: bold;
+        .card-body {
+            padding: 0.75rem; /* Reduce padding for a more compact look */
         }
-        .welcome-message p {
-            color: #555;
-            font-size: 1.1rem;
+        .card-text img {
+            max-width: 100%; /* Ensure the image is responsive */
+            height: auto;
+        }
+        .btn {
+            font-size: 0.875rem; /* Smaller button size */
         }
     </style>
 </head>
@@ -32,7 +31,7 @@
         <aside class="sidebar bg-light vh-100 p-3">
             <!-- User Profile Section -->
             <div class="text-center mb-4">
-                <img src="ic.jpg" alt="Profile" class="rounded-circle mb-2" width="80" height="80">
+                <img src="profile.jpg" alt="Profile" class="rounded-circle mb-2" width="80" height="80">
                 <h5 class="fw-bold">{{ Auth::user()->name }}</h5>
                 <br>
             </div>
@@ -41,7 +40,7 @@
             <nav>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="/dashboard_admin" class="nav-link text-primary fw-bold">
+                        <a href="/dashboard" class="nav-link text-primary fw-bold">
                             <i class="bi bi-house-door"></i> Dashboard
                         </a>
                     </li>
@@ -50,7 +49,6 @@
                             <i class="bi bi-eye"></i> Lihat Pengaduan
                         </a>
                     </li>
-
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -65,31 +63,25 @@
 
         <!-- Main Content -->
         <main class="p-4 flex-grow-1">
-            <!-- Welcome Section -->
-            <div class="welcome-message">
-                <h3>Selamat datang, {{ Auth::user()->name }}!</h3>
-                <p>Anda berhasil login sebagai admin. Kelola pengaduan dan lakukan tindakan sesuai kebutuhan.</p>
-            </div>
-
-            <!-- Lihat Pengaduan Section -->
-            @if(request()->routeIs('lihat-admin') || request()->routeIs('lihatPengaduan'))
+            <!-- Lihat Pengaduan Section for Admin -->
+            @if(request()->routeIs('lihat-admin'))
                 <section>
                     <h3>Lihat Pengaduan</h3>
                     @foreach ($pengaduans as $pengaduan)
-                        <div class="card mb-3">
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $pengaduan->judul }}</h5>
+                                <p class="card-text"><strong>Dibuat oleh:</strong> {{ $pengaduan->user->name }}</p>
+                                <p class="card-text"><strong>Kategori:</strong> {{ $pengaduan->kategori->name }}</p>
+                                <p class="card-text"><strong>Gambar:</strong> <img src="{{ asset('storage/' . $pengaduan->gambar) }}" alt="Gambar" class="img-fluid" width="150"></p>
                                 <p class="card-text">{{ $pengaduan->deskripsi }}</p>
-                                <img src="{{ asset('storage/' . $pengaduan->gambar) }}" class="img-fluid mb-2" alt="Pengaduan Image">
-
-                                <!-- Delete button for admin -->
-                                @if(auth()->user()->role == 'admin')
-                                    <form action="{{ route('deletePengaduan', $pengaduan->id) }}" method="POST" class="mt-3">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Hapus Pengaduan</button>
-                                    </form>
-                                @endif
+                                <a href="{{ route('pengaduan.show', $pengaduan->id) }}" class="btn btn-primary btn-sm">Lihat Detail</a>
+                                <!-- Delete Pengaduan button -->
+                                <form action="{{ route('deletePengaduan', $pengaduan->id) }}" method="POST" class="mt-3">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus Pengaduan</button>
+                                </form>
                             </div>
                         </div>
                     @endforeach

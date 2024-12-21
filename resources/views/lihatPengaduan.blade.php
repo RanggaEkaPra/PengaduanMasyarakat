@@ -17,7 +17,7 @@
         <aside class="sidebar bg-light vh-100 p-3">
             <!-- User Profile Section -->
             <div class="text-center mb-4">
-                <img src="profile.jpg" alt="Profile" class="rounded-circle mb-2" width="80" height="80">
+                <img src="ic.jpg" alt="Profile" class="rounded-circle mb-2" width="80" height="80">
                 <h5 class="fw-bold">{{ Auth::user()->name }}</h5>
                 <br>
             </div>
@@ -40,15 +40,11 @@
                             <i class="bi bi-eye"></i> Lihat Pengaduan
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="bi bi-file-earmark"></i> Documentation
-                        </a>
-                    </li>
+ 
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button class="nav-link text-danger border-0 bg-transparent fw-bold">
+                            <button class="nav-link">
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </button>
                         </form>

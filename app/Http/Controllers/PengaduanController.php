@@ -26,6 +26,10 @@ class PengaduanController extends Controller
 
     public function store(Request $request)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'You must be logged in to submit a complaint.');
+        }
+
         $validated = $request->validate([
             'judul' => 'required|max:255',
             'deskripsi' => 'required',
@@ -38,7 +42,11 @@ class PengaduanController extends Controller
         if ($request->hasFile('gambar')) {
             $path = $request->file('gambar')->store('uploads', 'public');
         }
+        $userNik = auth()->user()->nik;
 
+if (!$userNik) {
+    return redirect()->route('login')->with('error', 'You must have a valid NIK to submit a complaint.');
+}
         Pengaduan::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'],
@@ -56,6 +64,16 @@ class PengaduanController extends Controller
     {
         $pengaduans = Pengaduan::with('user', 'kategori', 'komentars.user',)->get();
         return view('lihatPengaduan', compact('pengaduans'));
+
+
+    }
+    public function admin()
+    {
+        if(auth()->user()->role == 'admin') {
+            // Fetch complaints with user and category info for the admin
+            $pengaduans = Pengaduan::with('user', 'kategori', 'komentars.user')->get();
+            return view('dashboard_admin', compact('pengaduans'));
+        }
     }
     public function kurva()
     {
@@ -87,5 +105,11 @@ class PengaduanController extends Controller
     {
         $pengaduan = Pengaduan::with('user', 'kategori', 'komentars.user')->findOrFail($id);
         return view('lihat-pengaduan-detail', compact('pengaduan'));
+    }
+    public function destroy($id)
+    {
+        $pengaduan = Pengaduan::findOrFail($id);
+        $pengaduan->delete();
+        return redirect()->route('lihat-admin')->with('success', 'Pengaduan berhasil dihapus');
     }
 }
